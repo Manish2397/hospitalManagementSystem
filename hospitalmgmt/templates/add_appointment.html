@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+</body>
+</html>{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+    <title>login</title>
+
+</head>
+<body class="center">
+
+
+
+
+
+                <form action="dashboard" method="POST" class="form-signin">
+                    <h2 id="login-text">Add Appointment</h2>
+                    <hr><br>
+                    {% csrf_token %}
+                    <input type="text" name="description" placeholder="Description" class="form-control"><br>
+                    <input type="time" name="starttime" placeholder="start time" class="form-control"><br>
+                    <input type="time" name="endtime" placeholder="end time" class="form-control"><br>
+                    <input type="date" name="date" placeholder="Date" class="form-control"><br>
+                    <input type="number" name="cost" placeholder="Cost" class="form-control"><br>
+
+                    <label for="doctor">Choose a doctor:</label>
+                    <select name="doctor" id="doctor" class="form-control">
+                        {% for doctor in list_of_doctors_name %}
+                      <option value={{doctor.id}}>{{doctor.username}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="patient">Choose a patient:</label>
+                    <select name="patient" id="patient" class="form-control">
+                        {% for patient in list_of_patients_name %}
+                      <option value={{patient.id}}>{{patient.username}}</option>
+                      {% endfor %}
+                    </select>
+
+                    <br>
+                    <button id="submit-button" type="submit" class="btn btn-lg btn-primary btn-block">
+                        Submit
+                    </button>
+
+                </form>
+
+
+</body>
+</html>

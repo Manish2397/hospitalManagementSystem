@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <title>Dashboard</title>
+    <link href="{% static 'css/jumbotron.css' %}" rel="stylesheet">
+</head>
+<body>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    {% if user.is_authenticated %}
+
+
+
+
+            <!--receptionist section started-->
+            {% if role == "Receptionist" %}
+
+            <main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Hello, {{profile_info.firstname}}</h1>
+        <p><h2>This is your dashboard</h2></p>
+      <p><a class="btn btn-primary btn-lg" href="dashboard/add_appointment" role="button">Add Appointment</a></p>
+        <p><a class="btn btn-primary btn-lg" href="dashboard/add_patient" role="button">Add Patient</a></p>
+    </div>
+  </div>
+    <div class="container">
+    <!-- Example row of columns -->
+      <h1>List of Doctors</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for name in list_of_doctors %}
+      <div class="col-md-12"  style="border:1px solid black; margin:4px;">
+          <h4>{{name.firstname}}</h4>
+        <p><a class="btn btn-secondary" href="#" role="button">View info &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+        <div class="container">
+    <!-- Example row of columns -->
+      <h1>List of Patients</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for name in list_of_patient %}
+      <div class="col-md-12"  style="border:1px solid black; margin:4px;">
+          <h4>{{name.firstname}}</h4>
+        <p><a class="btn btn-secondary" href="#" role="button">View info &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+    </div>
+
+
+
+
+  </div> <!-- /container -->
+
+</main>
+
+
+
+
+            {% endif %}
+            <!--receptionist section ended-->
+
+
+
+
+            <!--doctor section started-->
+            {% if role == "Doctor" %}
+            <main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Hello, Dr. {{profile_info.firstname}}</h1>
+        <p><h2>world relies on us</h2></p>
+      <p><a class="btn btn-primary btn-lg" href="dashboard/add_prescription" role="button">Add Prescription</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+      <h1>All Appointments</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for appointment in all_appointments %}
+      <div class="col-md-5"  style="border:1px solid black; margin:4px;">
+        <h2>appointment with doctor id - {{appointment.doctor_id}}</h2>
+        <p><b>Description : </b>{{appointment.description}}</p>
+                    <p><b>Start time : </b>{{appointment.startTime}}</p>
+                    <p><b>End time : </b>{{appointment.endTime}}</p>
+                    <p><b>Date : </b>{{appointment.date}}</p>
+                    <p><b>Cost : </b>{{appointment.cost}}</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+
+    <hr>
+    <div class="container">
+
+        <h1>All Prescription</h1>
+            <br><br>
+        <!-- Example row of columns -->
+        <div class="row" >
+
+            {% for prescription in all_prescription %}
+                    <div class="col-md-5"  style="border:1px solid black; margin:4px;">
+        <h2>prescription by doctor id - {{prescription.doctor_id}}</h2>
+                    <p><b>Medication : </b>{{prescription.medication}}</p>
+                    <p><b>Instruction : </b>{{prescription.instruction}}</p>
+                    <p><b>Is active : </b>{{prescription.active}}</p>
+                    <p><b>Date : </b>{{prescription.date}}</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                        </div>
+                        {%endfor%}
+
+
+
+
+        </div>
+  </div> <!-- /container -->
+
+</main>
+
+
+            {% endif %}
+    <!--doctor section ended-->
+
+    <!--patient section started-->
+    {% if role == "Patient" %}
+    <main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Hello, Patient</h1>
+      <p>Your health, our responsibilty</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Know more about us.</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+      <h1>All Appointments</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for appointment in all_appointments %}
+      <div class="col-md-5"  style="border:1px solid black; margin:4px;">
+        <h2>appointment with doctor id - {{appointment.doctor_id}}</h2>
+        <p><b>Description : </b>{{appointment.description}}</p>
+                    <p><b>Start time : </b>{{appointment.startTime}}</p>
+                    <p><b>End time : </b>{{appointment.endTime}}</p>
+                    <p><b>Date : </b>{{appointment.date}}</p>
+                    <p><b>Cost : </b>{{appointment.cost}}</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+
+    <hr>
+    <div class="container">
+
+        <h1>All Prescription</h1>
+            <br><br>
+        <!-- Example row of columns -->
+        <div class="row" >
+
+            {% for prescription in all_prescription %}
+                    <div class="col-md-5"  style="border:1px solid black; margin:4px;">
+        <h2>prescription by doctor id - {{prescription.doctor_id}}</h2>
+                    <p><b>Medication : </b>{{prescription.medication}}</p>
+                    <p><b>Instruction : </b>{{prescription.instruction}}</p>
+                    <p><b>Is active : </b>{{prescription.active}}</p>
+                    <p><b>Date : </b>{{prescription.date}}</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                        </div>
+                        {%endfor%}
+
+
+
+
+        </div>
+  </div> <!-- /container -->
+
+</main>
+    {% endif %}
+    <!--patient section over-->
+
+
+
+            {% if role == "HR" %}
+
+
+            <main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Hello, {{profile_info.firstname}}</h1>
+        <p><h2>This is your dashboard</h2></p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Know more</a></p>
+    </div>
+  </div>
+    <div class="container">
+    <!-- Example row of columns -->
+      <h1>List of Doctors</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for name in list_of_doctors %}
+      <div class="col-md-12"  style="border:1px solid black; margin:4px;">
+          <h4>{{name.firstname}}</h4>
+        <p><a class="btn btn-secondary" href="#" role="button">View info &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+        <div class="container">
+    <!-- Example row of columns -->
+      <h1>List of Patients</h1>
+      <br><br>
+    <div class="row">
+
+
+        {% for name in list_of_patient %}
+      <div class="col-md-12"  style="border:1px solid black; margin:4px;">
+          <h4>{{name.firstname}}</h4>
+        <p><a class="btn btn-secondary" href="#" role="button">View info &raquo;</a></p>
+      </div>
+        {% endfor%}
+
+
+    </div>
+    </div>
+
+
+
+
+  </div> <!-- /container -->
+
+</main>
+
+            {% endif %}
+
+{% endif %}
+
+</body>
+</html>
